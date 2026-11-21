@@ -9,7 +9,7 @@ object: <id>
 
 The real values live in [Orbis](https://github.com/sourcenetwork/orbis-rs), a threshold secret engine. Only people listed in [.orbis/readers](.orbis/readers) get them. Everyone else clones fine, they just keep the pointer.
 
-The tool lives in **[reecepbcups/orbis-git-poc](https://github.com/reecepbcups/orbis-git-poc)**, check its README for how it works under the hood.
+The tool lives in **[reecepbcups/git-orbis](https://github.com/reecepbcups/git-orbis)**, check its README for how it works under the hood.
 
 > Heads up: the Orbis stack for this repo runs on my laptop right now, so you won't get plaintext until it's hosted somewhere you can reach. The flow below is the real one though.
 
@@ -18,9 +18,9 @@ The tool lives in **[reecepbcups/orbis-git-poc](https://github.com/reecepbcups/o
 Safe to re-run, it skips whatever you already have.
 
 ```bash
-[ -d ~/orbis-git-poc ] || git clone https://github.com/reecepbcups/orbis-git-poc ~/orbis-git-poc
-make -C ~/orbis-git-poc tools                        # first build is slow
-grep -q 'orbis-git-poc/bin' ~/.zshrc || echo 'export PATH="$HOME/orbis-git-poc/bin:$PATH"' >> ~/.zshrc
+[ -d ~/git-orbis ] || git clone https://github.com/reecepbcups/git-orbis ~/git-orbis
+make -C ~/git-orbis tools                        # first build is slow
+grep -q 'git-orbis/bin' ~/.zshrc || echo 'export PATH="$HOME/git-orbis/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 git orbis install
 ```
@@ -30,7 +30,7 @@ git orbis install
 Needs docker. This is vera + 3 orbis nodes on localhost.
 
 ```bash
-make -C ~/orbis-git-poc up
+make -C ~/git-orbis up
 ```
 
 Don't run `make down` between demos, it wipes the chain and the `.env` pointer here dies with it.
@@ -75,4 +75,4 @@ Edit it and commit like any file. On commit the new contents go to Orbis and eve
 - **No revoke.** Removing someone from `.orbis/readers` doesn't un-share what they've seen. Rotate the real secret.
 - **History counts.** Old `.env` versions stay readable to readers.
 - **Your identity is `~/.ssh/git-orbis`.** Lose it and you lose access. `ORBIS_READER_DID_PK` overrides it if you'd rather use a secret manager.
-- **It's a POC.** See the [parent repo's known gaps](https://github.com/reecepbcups/orbis-git-poc#known-gaps).
+- **It's a POC.** See the [parent repo's known gaps](https://github.com/reecepbcups/git-orbis#known-gaps).
