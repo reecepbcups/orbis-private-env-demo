@@ -28,7 +28,7 @@ git orbis install
 
 ## Start the Orbis stack
 
-Needs docker. This is vera + 3 orbis nodes on localhost.
+Needs docker. This is vera + 3 orbis nodes on localhost. It runs locally just for the PoC, but it can be hosted in any cloud docker environment.
 
 ```bash
 make -C ~/git-orbis up
@@ -50,6 +50,7 @@ Send that `did:key:...` to someone who already has access.
 
 ```bash
 [ -d orbis-private-env-demo ] || git clone https://github.com/reecepbcups/orbis-private-env-demo
+cd orbis-private-env-demo
 ```
 
 That's it. If you're on the readers list, `.env` has the real values.
