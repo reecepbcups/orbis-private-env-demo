@@ -26,6 +26,16 @@ export PATH="$HOME/git-orbis/bin:$PATH"
 git orbis install
 ```
 
+> `install` hooks the filter into your global git config (like `git lfs install`) and offers to create your identity:
+>
+> ```text
+> No git-orbis identity found. Create one at ~/.ssh/git-orbis? [y/N] y
+> saved. back it up, losing it means losing access.
+> did:key:z6Mk...
+> ```
+>
+> Send that `did:key:...` to someone who already has access.
+
 ## Start the Orbis stack
 
 Needs docker. This is vera + 3 orbis nodes on localhost. It runs locally just for the PoC, but it can be hosted in any cloud docker environment.
@@ -35,16 +45,6 @@ make -C ~/git-orbis up
 ```
 
 Don't run `make down` between demos, it wipes the chain and the `.env` pointer here dies with it.
-
-`install` hooks the filter into your global git config (like `git lfs install`) and offers to create your identity:
-
-```text
-No git-orbis identity found. Create one at ~/.ssh/git-orbis? [y/N] y
-saved. back it up, losing it means losing access.
-did:key:z6Mk...
-```
-
-Send that `did:key:...` to someone who already has access.
 
 ## Get the .env
 
