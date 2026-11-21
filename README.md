@@ -20,8 +20,9 @@ Safe to re-run, it skips whatever you already have.
 ```bash
 [ -d ~/git-orbis ] || git clone https://github.com/reecepbcups/git-orbis ~/git-orbis
 make -C ~/git-orbis tools                        # first build is slow
-grep -q 'git-orbis/bin' ~/.zshrc || echo 'export PATH="$HOME/git-orbis/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+RC=~/.$(basename "$SHELL")rc                         # ~/.zshrc or ~/.bashrc
+grep -qs 'git-orbis/bin' "$RC" || echo 'export PATH="$HOME/git-orbis/bin:$PATH"' >> "$RC"
+export PATH="$HOME/git-orbis/bin:$PATH"
 git orbis install
 ```
 
