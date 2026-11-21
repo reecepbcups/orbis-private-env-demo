@@ -59,7 +59,7 @@ Fresh identity? You'll see `git-orbis: no access to .env ... leaving pointer`. N
 
 ```bash
 git orbis grant "$(git orbis whoami)"
-git commit -am "add $(whoami) as reader" && git push
+git commit -am "add $(whoami) as reader" && git pull --rebase && git push
 git orbis refresh
 cat .env
 ```
