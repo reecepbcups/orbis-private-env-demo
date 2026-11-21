@@ -15,12 +15,25 @@ The tool lives in **[reecepbcups/orbis-git-poc](https://github.com/reecepbcups/o
 
 ## Setup (once per machine)
 
+Safe to re-run, it skips whatever you already have.
+
 ```bash
-git clone https://github.com/reecepbcups/orbis-git-poc ~/orbis-git-poc
+[ -d ~/orbis-git-poc ] || git clone https://github.com/reecepbcups/orbis-git-poc ~/orbis-git-poc
 make -C ~/orbis-git-poc tools                        # first build is slow
-echo 'export PATH="$HOME/orbis-git-poc/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+grep -q 'orbis-git-poc/bin' ~/.zshrc || echo 'export PATH="$HOME/orbis-git-poc/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 git orbis install
 ```
+
+## Start the Orbis stack
+
+Needs docker. This is vera + 3 orbis nodes on localhost.
+
+```bash
+make -C ~/orbis-git-poc up
+```
+
+Don't run `make down` between demos, it wipes the chain and the `.env` pointer here dies with it.
 
 `install` hooks the filter into your global git config (like `git lfs install`) and offers to create your identity:
 
@@ -35,7 +48,7 @@ Send that `did:key:...` to someone who already has access.
 ## Get the .env
 
 ```bash
-git clone https://github.com/reecepbcups/orbis-private-env-demo
+[ -d orbis-private-env-demo ] || git clone https://github.com/reecepbcups/orbis-private-env-demo
 ```
 
 That's it. If you're on the readers list, `.env` has the real values.
