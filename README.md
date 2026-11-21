@@ -53,13 +53,18 @@ Send that `did:key:...` to someone who already has access.
 cd orbis-private-env-demo
 ```
 
-That's it. If you're on the readers list, `.env` has the real values.
+If you're on the readers list, `.env` has the real values and you're done.
 
-Not on it yet? You'll see `git-orbis: no access to .env ... leaving pointer`. Nothing breaks. Once you've been granted, run:
+Fresh identity? You'll see `git-orbis: no access to .env ... leaving pointer`. Nothing breaks. Add yourself as a reader and push it:
 
 ```bash
-git pull && git orbis refresh
+git orbis grant "$(git orbis whoami)"
+git commit -am "add $(whoami) as reader" && git push
+git orbis refresh
+cat .env
 ```
+
+This only works because the local stack lets anyone grant (it signs with the public devnet key). In a real setup someone who already has access runs `grant` for you, then you `git pull && git orbis refresh`.
 
 ## Give someone access
 
