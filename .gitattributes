@@ -1,5 +1,3 @@
-.env filter=orbis
-# git-orbis begin, generated from .orbis/access by git orbis sync
-.env* filter=orbis
-.env.production filter=orbis
+# git-orbis begin, .orbis/access decides what gets encrypted
+* filter=orbis
 # git-orbis end
