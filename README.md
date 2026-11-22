@@ -58,20 +58,45 @@ If you're on the readers list, `.env` has the real values and you're done.
 Fresh identity? You'll see `git-orbis: no access to .env ... leaving pointer`. Nothing breaks. Add yourself as a reader and push it:
 
 ```bash
+# add a new entity
 git orbis grant "$(git orbis whoami)"
 git commit -am "add $(whoami) as reader" && git pull --rebase && git push
+
+# still the pointer, your checkout is from before the grant
+cat .env
+# updates every file you can read now (directly or through a team)
 git orbis refresh
+# you now have access!
 cat .env
 ```
 
 This only works because the local stack lets anyone grant (it signs with the public devnet key). In a real setup someone who already has access runs `grant` for you, then you `git pull && git orbis refresh`.
 
-## Give someone access
+## Private branches
+
+`private/*` branches are encrypted, only `@ops` can read them ([.orbis/access](.orbis/access)). GitHub just sees the name and an encrypted bundle.
+
+Push a branch if you are in `@ops`:
 
 ```bash
-git orbis grant did:key:z6Mk...
-git commit -am "give <name> access" && git push
+git orbis init  # once per clone, makes git push encrypt private/*
+git checkout -b private/my-thing
+git push origin private/my-thing
 ```
+
+Grab the example one:
+
+```bash
+git orbis fetch-private private/my-thing
+git checkout private/my-thing
+```
+
+Make it public (renames it, pushes real commits, deletes the encrypted copy, no undo):
+
+```bash
+git orbis private-publish private/my-thing my-new-public-branch
+```
+
 
 ## Change the .env
 
